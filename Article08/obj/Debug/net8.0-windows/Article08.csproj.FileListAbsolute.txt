@@ -1,0 +1,16 @@
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\bin\Debug\net8.0-windows\Article08.exe
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\bin\Debug\net8.0-windows\Article08.deps.json
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\bin\Debug\net8.0-windows\Article08.runtimeconfig.json
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\bin\Debug\net8.0-windows\Article08.dll
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\bin\Debug\net8.0-windows\Article08.pdb
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.Form1.resources
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.csproj.GenerateResource.cache
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.GeneratedMSBuildEditorConfig.editorconfig
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.AssemblyInfoInputs.cache
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.AssemblyInfo.cs
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.csproj.CoreCompileInputs.cache
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.dll
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\refint\Article08.dll
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.pdb
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\Article08.genruntimeconfig.cache
+F:\C_NguyenNgocBaoNgan\Ngan_2123110503\Article08\obj\Debug\net8.0-windows\ref\Article08.dll

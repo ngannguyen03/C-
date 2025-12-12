@@ -34,9 +34,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 400);
+            this.ClientSize = new System.Drawing.Size(484, 361); // Kích thước cửa sổ game
             this.Name = "Form1";
-            this.Text = "Catch Egg Game (Part 1)";
+            this.Text = "Bouncing Ball Game";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 

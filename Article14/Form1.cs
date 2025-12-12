@@ -1,5 +1,11 @@
 ﻿using System;
-using System.Collections; // Cần dòng này để dùng ArrayList
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Article14
@@ -11,55 +17,73 @@ namespace Article14
             InitializeComponent();
         }
 
-        // Tạo dữ liệu giả lập (Trang 121)
-        public ArrayList GetData()
-        {
-            ArrayList lst = new ArrayList();
-
-            Song s = new Song();
-            s.Id = 53418;
-            s.Name = "Giấc mơ cha pi";
-            s.Author = "Trần Tiến";
-            lst.Add(s);
-
-            s = new Song();
-            s.Id = 52616;
-            s.Name = "Đôi mắt pleiku";
-            s.Author = "Nguyễn Cường";
-            lst.Add(s);
-
-            s = new Song();
-            s.Id = 51172;
-            s.Name = "Em muốn sống bên anh trọn đời";
-            s.Author = "Nguyễn Cường";
-            lst.Add(s);
-
-            return lst;
-        }
-
-        // Sự kiện Form Load (Trang 122)
-        private void Form1_Load(object sender, EventArgs e)
-        {
-            ArrayList lst = GetData();
-            // Gán nguồn dữ liệu là danh sách các đối tượng
-            lbSong.DataSource = lst;
-            // Chỉ hiển thị thuộc tính "Name" của đối tượng lên giao diện
-            lbSong.DisplayMember = "Name";
-        }
-
-        // Sự kiện bấm nút chuyển sang phải (Trang 122)
+        // 1. Chuyển 1 bài hát được chọn từ Trái sang Phải (Button >)
         private void btSelect_Click(object sender, EventArgs e)
         {
-            // Ép kiểu item đang chọn về đối tượng Song
-            Song song = (Song)lbSong.SelectedItem;
+            if (lbSong.SelectedItem != null)
+            {
+                string song = lbSong.SelectedItem.ToString();
+                lbFavorite.Items.Add(song);
+                lbSong.Items.RemoveAt(lbSong.SelectedIndex);
+            }
+        }
 
-            // Lấy thông tin chi tiết từ đối tượng
-            string id = song.Id.ToString();
-            string name = song.Name;
-            string author = song.Author;
+        // 2. Chuyển tất cả bài hát từ Trái sang Phải (Button >>)
+        // Lưu ý: Phải dùng vòng lặp ngược (i--) như hướng dẫn trang 117
+        private void btSelectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = lbSong.Items.Count - 1; i >= 0; i--)
+            {
+                string song = lbSong.Items[i].ToString();
+                lbFavorite.Items.Add(song);
+                lbSong.Items.RemoveAt(i);
+            }
+        }
 
-            // Ghép chuỗi và thêm vào danh sách yêu thích
-            lbFavorite.Items.Add(id + " - " + name + " - " + author);
+        // 3. Chuyển 1 bài hát từ Phải về Trái (Button <) - Logic tự suy luận tương tự
+        private void btDeselect_Click(object sender, EventArgs e)
+        {
+            if (lbFavorite.SelectedItem != null)
+            {
+                string song = lbFavorite.SelectedItem.ToString();
+                lbSong.Items.Add(song);
+                lbFavorite.Items.RemoveAt(lbFavorite.SelectedIndex);
+            }
+        }
+
+        // 4. Chuyển tất cả từ Phải về Trái (Button <<) - Logic tự suy luận tương tự
+        private void btDeselectAll_Click(object sender, EventArgs e)
+        {
+            for (int i = lbFavorite.Items.Count - 1; i >= 0; i--)
+            {
+                string song = lbFavorite.Items[i].ToString();
+                lbSong.Items.Add(song);
+                lbFavorite.Items.RemoveAt(i);
+            }
+        }
+
+        // 5. Double click vào ListBox Trái để chuyển sang Phải (Trang 117)
+        private void lbSong_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.lbSong.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                string song = lbSong.Items[index].ToString();
+                lbFavorite.Items.Add(song);
+                lbSong.Items.RemoveAt(index);
+            }
+        }
+
+        // 6. Double click vào ListBox Phải để chuyển về Trái (Tương tự)
+        private void lbFavorite_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = this.lbFavorite.IndexFromPoint(e.Location);
+            if (index != System.Windows.Forms.ListBox.NoMatches)
+            {
+                string song = lbFavorite.Items[index].ToString();
+                lbSong.Items.Add(song);
+                lbFavorite.Items.RemoveAt(index);
+            }
         }
     }
 }

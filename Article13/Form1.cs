@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,77 +12,74 @@ namespace Article13
 {
     public partial class Form1 : Form
     {
+        // Biến đếm số thứ tự sinh viên
+        int count = 0;
+
         public Form1()
         {
             InitializeComponent();
         }
 
-        // 1. Chuyển 1 bài hát được chọn từ Trái sang Phải (Button >)
-        private void btSelect_Click(object sender, EventArgs e)
+        // Sự kiện khi Form load lên
+        private void Form1_Load(object sender, EventArgs e)
         {
-            if (lbSong.SelectedItem != null)
-            {
-                string song = lbSong.SelectedItem.ToString();
-                lbFavorite.Items.Add(song);
-                lbSong.Items.RemoveAt(lbSong.SelectedIndex);
-            }
+            // Thiết lập mặc định
+            rbMale.Checked = true; // Mặc định chọn Nam
+
+            // Chọn item đầu tiên của ComboBox nếu có
+            if (cbFaculty.Items.Count > 0)
+                cbFaculty.SelectedIndex = 0;
         }
 
-        // 2. Chuyển tất cả bài hát từ Trái sang Phải (Button >>)
-        // Lưu ý: Phải dùng vòng lặp ngược (i--) như hướng dẫn trang 117
-        private void btSelectAll_Click(object sender, EventArgs e)
+        // Sự kiện click nút Thêm (Add)
+        private void btAdd_Click(object sender, EventArgs e)
         {
-            for (int i = lbSong.Items.Count - 1; i >= 0; i--)
+            // 1. Tăng biến đếm
+            count++;
+
+            // 2. Lấy thông tin Họ tên
+            string name = tbName.Text;
+
+            // 3. Lấy thông tin Giới tính
+            string gender = "Nam";
+            if (rbFemale.Checked)
             {
-                string song = lbSong.Items[i].ToString();
-                lbFavorite.Items.Add(song);
-                lbSong.Items.RemoveAt(i);
+                gender = "Nữ";
             }
+
+            // 4. Lấy thông tin Ngày sinh
+            // Định dạng chuỗi ngày tháng theo kiểu dd/MM/yyyy
+            string dob = dtpDob.Value.ToString("dd/MM/yyyy");
+
+            // 5. Lấy thông tin Khoa
+            string faculty = "";
+            if (cbFaculty.SelectedItem != null)
+            {
+                faculty = cbFaculty.SelectedItem.ToString();
+            }
+
+            // 6. Tạo chuỗi kết quả để hiển thị (Mô phỏng giống hình trang 110)
+            string result = count + ". " + name + "\n" +
+                            "   -Giới tính: " + gender + "\n" +
+                            "   -Ngày Sinh: " + dob + "\n" +
+                            "   -Khoa: " + faculty + "\n\n"; // Thêm dòng trống cho đẹp
+
+            // 7. Thêm vào RichTextBox (Trạng thái)
+            rtbStatus.Text += result;
+
+            // Cuộn xuống dưới cùng
+            rtbStatus.SelectionStart = rtbStatus.Text.Length;
+            rtbStatus.ScrollToCaret();
         }
 
-        // 3. Chuyển 1 bài hát từ Phải về Trái (Button <) - Logic tự suy luận tương tự
-        private void btDeselect_Click(object sender, EventArgs e)
+        // Sự kiện click nút Thoát (Exit)
+        private void btExit_Click(object sender, EventArgs e)
         {
-            if (lbFavorite.SelectedItem != null)
+            // Hiển thị hộp thoại xác nhận
+            DialogResult dg = MessageBox.Show("Bạn có muốn thoát?", "Thông báo", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (dg == DialogResult.Yes)
             {
-                string song = lbFavorite.SelectedItem.ToString();
-                lbSong.Items.Add(song);
-                lbFavorite.Items.RemoveAt(lbFavorite.SelectedIndex);
-            }
-        }
-
-        // 4. Chuyển tất cả từ Phải về Trái (Button <<) - Logic tự suy luận tương tự
-        private void btDeselectAll_Click(object sender, EventArgs e)
-        {
-            for (int i = lbFavorite.Items.Count - 1; i >= 0; i--)
-            {
-                string song = lbFavorite.Items[i].ToString();
-                lbSong.Items.Add(song);
-                lbFavorite.Items.RemoveAt(i);
-            }
-        }
-
-        // 5. Double click vào ListBox Trái để chuyển sang Phải (Trang 117)
-        private void lbSong_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int index = this.lbSong.IndexFromPoint(e.Location);
-            if (index != System.Windows.Forms.ListBox.NoMatches)
-            {
-                string song = lbSong.Items[index].ToString();
-                lbFavorite.Items.Add(song);
-                lbSong.Items.RemoveAt(index);
-            }
-        }
-
-        // 6. Double click vào ListBox Phải để chuyển về Trái (Tương tự)
-        private void lbFavorite_MouseDoubleClick(object sender, MouseEventArgs e)
-        {
-            int index = this.lbFavorite.IndexFromPoint(e.Location);
-            if (index != System.Windows.Forms.ListBox.NoMatches)
-            {
-                string song = lbFavorite.Items[index].ToString();
-                lbSong.Items.Add(song);
-                lbFavorite.Items.RemoveAt(index);
+                this.Close();
             }
         }
     }

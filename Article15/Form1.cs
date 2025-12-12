@@ -1,13 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections; // Cần dòng này để dùng ArrayList
 using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace Article15
 {
@@ -18,24 +11,55 @@ namespace Article15
             InitializeComponent();
         }
 
-        // Sự kiện khi bấm nút "Chọn ảnh..." (Trang 127)
-        private void btFile_Click(object sender, EventArgs e)
+        // Tạo dữ liệu giả lập (Trang 121)
+        public ArrayList GetData()
         {
-            // Chế độ hiển thị ảnh: Co dãn ảnh cho vừa khung PictureBox
-            pbImage.SizeMode = PictureBoxSizeMode.StretchImage;
+            ArrayList lst = new ArrayList();
 
-            // Khởi tạo hộp thoại mở file
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Title = "Open Image";
-            // Chỉ lọc các file có đuôi .jpg
-            dlg.Filter = "JPEG files (*.jpg)|*.jpg|All files (*.*)|*.*";
+            Song s = new Song();
+            s.Id = 53418;
+            s.Name = "Giấc mơ cha pi";
+            s.Author = "Trần Tiến";
+            lst.Add(s);
 
-            // Nếu người dùng bấm OK trong hộp thoại
-            if (dlg.ShowDialog() == DialogResult.OK)
-            {
-                // Gán đường dẫn file ảnh vào PictureBox
-                pbImage.ImageLocation = dlg.FileName;
-            }
+            s = new Song();
+            s.Id = 52616;
+            s.Name = "Đôi mắt pleiku";
+            s.Author = "Nguyễn Cường";
+            lst.Add(s);
+
+            s = new Song();
+            s.Id = 51172;
+            s.Name = "Em muốn sống bên anh trọn đời";
+            s.Author = "Nguyễn Cường";
+            lst.Add(s);
+
+            return lst;
+        }
+
+        // Sự kiện Form Load (Trang 122)
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            ArrayList lst = GetData();
+            // Gán nguồn dữ liệu là danh sách các đối tượng
+            lbSong.DataSource = lst;
+            // Chỉ hiển thị thuộc tính "Name" của đối tượng lên giao diện
+            lbSong.DisplayMember = "Name";
+        }
+
+        // Sự kiện bấm nút chuyển sang phải (Trang 122)
+        private void btSelect_Click(object sender, EventArgs e)
+        {
+            // Ép kiểu item đang chọn về đối tượng Song
+            Song song = (Song)lbSong.SelectedItem;
+
+            // Lấy thông tin chi tiết từ đối tượng
+            string id = song.Id.ToString();
+            string name = song.Name;
+            string author = song.Author;
+
+            // Ghép chuỗi và thêm vào danh sách yêu thích
+            lbFavorite.Items.Add(id + " - " + name + " - " + author);
         }
     }
 }

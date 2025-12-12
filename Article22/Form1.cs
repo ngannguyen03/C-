@@ -12,73 +12,75 @@ namespace Article22
 {
     public partial class Form1 : Form
     {
-        // Khai báo PictureBox và Timer bằng code
-        PictureBox pbEgg = new PictureBox();
-        System.Windows.Forms.Timer tmEgg = new System.Windows.Forms.Timer();
+        // Khai báo các control bằng code
+        PictureBox pb = new PictureBox();
 
-        // Tọa độ và tốc độ rơi của trứng
-        int xEgg = 300;
-        int yEgg = 0;
-        int xDelta = 3;
-        int yDelta = 3;
+        // SỬA LỖI Ở ĐÂY: Chỉ định rõ dùng Timer của Windows Forms
+        System.Windows.Forms.Timer tmGame = new System.Windows.Forms.Timer();
+
+        // Tọa độ ban đầu
+        int xBall = 0;
+        int yBall = 0;
+
+        // Bước nhảy (tốc độ di chuyển)
+        int xDelta = 5;
+        int yDelta = 5;
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        // Sự kiện Form Load (Trang 166)
+        // Sự kiện Form Load
         private void Form1_Load(object sender, EventArgs e)
         {
             // Cấu hình Timer
-            tmEgg.Interval = 10;
-            tmEgg.Tick += tmEgg_Tick;
-            tmEgg.Start();
+            tmGame.Interval = 10;
+            tmGame.Tick += new EventHandler(tmGame_Tick);
+            tmGame.Start();
 
-            // Cấu hình PictureBox quả trứng
-            pbEgg.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbEgg.Size = new Size(50, 50); // Kích thước trứng
-            pbEgg.Location = new Point(xEgg, yEgg);
-            pbEgg.BackColor = Color.Transparent;
+            // Cấu hình PictureBox (Quả bóng)
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            pb.Size = new Size(50, 50);
+            pb.Location = new Point(xBall, yBall);
+            pb.BackColor = Color.Transparent;
 
-            this.Controls.Add(pbEgg);
+            // Thêm bóng vào Form
+            this.Controls.Add(pb);
 
-            // Load ảnh trứng nguyên vẹn
+            // Load ảnh
             try
             {
-                // Bạn hãy sửa đường dẫn này đúng với nơi bạn lưu file ảnh
-                pbEgg.Image = Image.FromFile(@"D:\egg_gold.png");
+                pb.Image = Image.FromFile(@"D:\ball.png");
             }
             catch
             {
-                pbEgg.BackColor = Color.Yellow; // Màu vàng nếu không tìm thấy ảnh
+                // Nếu không tìm thấy ảnh thì đổ màu đỏ để test
+                pb.BackColor = Color.Red;
             }
         }
 
-        // Sự kiện Timer Tick để trứng rơi (Trang 167)
-        void tmEgg_Tick(object sender, EventArgs e)
+        // Sự kiện Timer Tick
+        void tmGame_Tick(object sender, EventArgs e)
         {
-            yEgg += yDelta; // Tăng Y để rơi xuống
+            // Thay đổi tọa độ
+            xBall += xDelta;
+            yBall += yDelta;
 
-            // Kiểm tra chạm đáy hoặc chạm nóc (theo logic tài liệu)
-            if (yEgg > this.ClientSize.Height - pbEgg.Height || yEgg <= 0)
+            // Kiểm tra va chạm biên Ngang
+            if (xBall > this.ClientSize.Width - pb.Width || xBall <= 0)
             {
-                try
-                {
-                    // Đổi sang ảnh trứng vỡ
-                    pbEgg.Image = Image.FromFile(@"D:\egg_gold_broken.png");
-                }
-                catch
-                {
-                    pbEgg.BackColor = Color.Red; // Màu đỏ nếu vỡ (fallback)
-                }
-
-                // (Mở rộng: Thường ở đây sẽ dừng game hoặc reset trứng lên trên)
-                // Nhưng theo Article 26 thì code dừng ở việc đổi ảnh.
+                xDelta = -xDelta;
             }
 
-            // Cập nhật vị trí
-            pbEgg.Location = new Point(xEgg, yEgg);
+            // Kiểm tra va chạm biên Dọc
+            if (yBall > this.ClientSize.Height - pb.Height || yBall <= 0)
+            {
+                yDelta = -yDelta;
+            }
+
+            // Cập nhật vị trí mới cho PictureBox
+            pb.Location = new Point(xBall, yBall);
         }
     }
 }

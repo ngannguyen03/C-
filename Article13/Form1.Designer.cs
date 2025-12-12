@@ -28,115 +28,168 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.lbSong = new System.Windows.Forms.ListBox();
-            this.lbFavorite = new System.Windows.Forms.ListBox();
-            this.btSelect = new System.Windows.Forms.Button();
-            this.btDeselect = new System.Windows.Forms.Button();
-            this.btSelectAll = new System.Windows.Forms.Button();
-            this.btDeselectAll = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.tbName = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.dtpDob = new System.Windows.Forms.DateTimePicker();
+            this.label3 = new System.Windows.Forms.Label();
+            this.rbMale = new System.Windows.Forms.RadioButton();
+            this.rbFemale = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.cbFaculty = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.rtbStatus = new System.Windows.Forms.RichTextBox();
+            this.btAdd = new System.Windows.Forms.Button();
+            this.btExit = new System.Windows.Forms.Button();
             this.SuspendLayout();
-            // 
-            // lbSong
-            // 
-            this.lbSong.FormattingEnabled = true;
-            this.lbSong.Items.AddRange(new object[] {
-            "Giấc mơ Chapi",
-            "Đôi mắt Pleiku",
-            "Em Muốn Sống Bên Anh Trọn Đời",
-            "H\'Zen Lên Rẫy",
-            "Còn Thương Nhau Thì Về Buôn Mê Thuột",
-            "Ly Cà Phê Ban Mê",
-            "Đi tìm lời ru mặt trời"});
-            this.lbSong.Location = new System.Drawing.Point(12, 38);
-            this.lbSong.Name = "lbSong";
-            this.lbSong.Size = new System.Drawing.Size(200, 251);
-            this.lbSong.TabIndex = 0;
-            this.lbSong.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbSong_MouseDoubleClick);
-            // 
-            // lbFavorite
-            // 
-            this.lbFavorite.FormattingEnabled = true;
-            this.lbFavorite.Location = new System.Drawing.Point(308, 38);
-            this.lbFavorite.Name = "lbFavorite";
-            this.lbFavorite.Size = new System.Drawing.Size(200, 251);
-            this.lbFavorite.TabIndex = 1;
-            this.lbFavorite.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lbFavorite_MouseDoubleClick);
-            // 
-            // btSelect
-            // 
-            this.btSelect.Location = new System.Drawing.Point(227, 85);
-            this.btSelect.Name = "btSelect";
-            this.btSelect.Size = new System.Drawing.Size(65, 30);
-            this.btSelect.TabIndex = 2;
-            this.btSelect.Text = ">";
-            this.btSelect.UseVisualStyleBackColor = true;
-            this.btSelect.Click += new System.EventHandler(this.btSelect_Click);
-            // 
-            // btDeselect
-            // 
-            this.btDeselect.Location = new System.Drawing.Point(227, 121);
-            this.btDeselect.Name = "btDeselect";
-            this.btDeselect.Size = new System.Drawing.Size(65, 30);
-            this.btDeselect.TabIndex = 3;
-            this.btDeselect.Text = "<";
-            this.btDeselect.UseVisualStyleBackColor = true;
-            this.btDeselect.Click += new System.EventHandler(this.btDeselect_Click);
-            // 
-            // btSelectAll
-            // 
-            this.btSelectAll.Location = new System.Drawing.Point(227, 185);
-            this.btSelectAll.Name = "btSelectAll";
-            this.btSelectAll.Size = new System.Drawing.Size(65, 30);
-            this.btSelectAll.TabIndex = 4;
-            this.btSelectAll.Text = ">>";
-            this.btSelectAll.UseVisualStyleBackColor = true;
-            this.btSelectAll.Click += new System.EventHandler(this.btSelectAll_Click);
-            // 
-            // btDeselectAll
-            // 
-            this.btDeselectAll.Location = new System.Drawing.Point(227, 221);
-            this.btDeselectAll.Name = "btDeselectAll";
-            this.btDeselectAll.Size = new System.Drawing.Size(65, 30);
-            this.btDeselectAll.TabIndex = 5;
-            this.btDeselectAll.Text = "<<";
-            this.btDeselectAll.UseVisualStyleBackColor = true;
-            this.btDeselectAll.Click += new System.EventHandler(this.btDeselectAll_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 19);
+            this.label1.Location = new System.Drawing.Point(30, 30);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 13);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Danh sách bài hát";
+            this.label1.Size = new System.Drawing.Size(57, 13);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Họ và tên:";
+            // 
+            // tbName
+            // 
+            this.tbName.Location = new System.Drawing.Point(130, 27);
+            this.tbName.Name = "tbName";
+            this.tbName.Size = new System.Drawing.Size(200, 20);
+            this.tbName.TabIndex = 1;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(305, 19);
+            this.label2.Location = new System.Drawing.Point(30, 70);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(129, 13);
-            this.label2.TabIndex = 7;
-            this.label2.Text = "Danh sách bài hát ưa thích";
+            this.label2.Size = new System.Drawing.Size(57, 13);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Ngày sinh:";
+            // 
+            // dtpDob
+            // 
+            this.dtpDob.CustomFormat = "dd/MM/yyyy";
+            this.dtpDob.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.dtpDob.Location = new System.Drawing.Point(130, 64);
+            this.dtpDob.Name = "dtpDob";
+            this.dtpDob.Size = new System.Drawing.Size(200, 20);
+            this.dtpDob.TabIndex = 3;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 110);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(50, 13);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "Giới tính:";
+            // 
+            // rbMale
+            // 
+            this.rbMale.AutoSize = true;
+            this.rbMale.Checked = true;
+            this.rbMale.Location = new System.Drawing.Point(130, 108);
+            this.rbMale.Name = "rbMale";
+            this.rbMale.Size = new System.Drawing.Size(47, 17);
+            this.rbMale.TabIndex = 5;
+            this.rbMale.TabStop = true;
+            this.rbMale.Text = "Nam";
+            this.rbMale.UseVisualStyleBackColor = true;
+            // 
+            // rbFemale
+            // 
+            this.rbFemale.AutoSize = true;
+            this.rbFemale.Location = new System.Drawing.Point(230, 108);
+            this.rbFemale.Name = "rbFemale";
+            this.rbFemale.Size = new System.Drawing.Size(39, 17);
+            this.rbFemale.TabIndex = 6;
+            this.rbFemale.Text = "Nữ";
+            this.rbFemale.UseVisualStyleBackColor = true;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(30, 150);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(35, 13);
+            this.label4.TabIndex = 7;
+            this.label4.Text = "Khoa:";
+            // 
+            // cbFaculty
+            // 
+            this.cbFaculty.FormattingEnabled = true;
+            this.cbFaculty.Items.AddRange(new object[] {
+            "Công nghệ thông tin",
+            "Kế toán",
+            "Cơ khí",
+            "Điện",
+            "Hóa"});
+            this.cbFaculty.Location = new System.Drawing.Point(130, 147);
+            this.cbFaculty.Name = "cbFaculty";
+            this.cbFaculty.Size = new System.Drawing.Size(200, 21);
+            this.cbFaculty.TabIndex = 8;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(30, 190);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(58, 13);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "Trạng thái:";
+            // 
+            // rtbStatus
+            // 
+            this.rtbStatus.Location = new System.Drawing.Point(130, 190);
+            this.rtbStatus.Name = "rtbStatus";
+            this.rtbStatus.ReadOnly = true;
+            this.rtbStatus.Size = new System.Drawing.Size(200, 150);
+            this.rtbStatus.TabIndex = 10;
+            this.rtbStatus.Text = "";
+            // 
+            // btAdd
+            // 
+            this.btAdd.Location = new System.Drawing.Point(130, 360);
+            this.btAdd.Name = "btAdd";
+            this.btAdd.Size = new System.Drawing.Size(75, 23);
+            this.btAdd.TabIndex = 11;
+            this.btAdd.Text = "Thêm";
+            this.btAdd.UseVisualStyleBackColor = true;
+            this.btAdd.Click += new System.EventHandler(this.btAdd_Click);
+            // 
+            // btExit
+            // 
+            this.btExit.Location = new System.Drawing.Point(255, 360);
+            this.btExit.Name = "btExit";
+            this.btExit.Size = new System.Drawing.Size(75, 23);
+            this.btExit.TabIndex = 12;
+            this.btExit.Text = "Thoát";
+            this.btExit.UseVisualStyleBackColor = true;
+            this.btExit.Click += new System.EventHandler(this.btExit_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(524, 311);
+            this.ClientSize = new System.Drawing.Size(384, 411);
+            this.Controls.Add(this.btExit);
+            this.Controls.Add(this.btAdd);
+            this.Controls.Add(this.rtbStatus);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cbFaculty);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.rbFemale);
+            this.Controls.Add(this.rbMale);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.dtpDob);
             this.Controls.Add(this.label2);
+            this.Controls.Add(this.tbName);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.btDeselectAll);
-            this.Controls.Add(this.btSelectAll);
-            this.Controls.Add(this.btDeselect);
-            this.Controls.Add(this.btSelect);
-            this.Controls.Add(this.lbFavorite);
-            this.Controls.Add(this.lbSong);
             this.Name = "Form1";
-            this.Text = "Music Selector";
+            this.Text = "Quản lý sinh viên";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -144,13 +197,18 @@
 
         #endregion
 
-        private System.Windows.Forms.ListBox lbSong;
-        private System.Windows.Forms.ListBox lbFavorite;
-        private System.Windows.Forms.Button btSelect;
-        private System.Windows.Forms.Button btDeselect;
-        private System.Windows.Forms.Button btSelectAll;
-        private System.Windows.Forms.Button btDeselectAll;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.DateTimePicker dtpDob;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rbMale;
+        private System.Windows.Forms.RadioButton rbFemale;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ComboBox cbFaculty;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.RichTextBox rtbStatus;
+        private System.Windows.Forms.Button btAdd;
+        private System.Windows.Forms.Button btExit;
     }
 }

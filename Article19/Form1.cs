@@ -7,56 +7,110 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace Article19
 {
     public partial class Form1 : Form
     {
-        // Khai báo PictureBox và tọa độ ban đầu
-        PictureBox pb = new PictureBox();
-        int x = 10; // Sửa mặc định khác 0 một chút để dễ nhìn
-        int y = 10;
+        // Khai báo danh sách và BindingSource
+        List<Employee> lst;
+        BindingSource bs = new BindingSource();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        // Sự kiện nút File (Trang 151)
-        private void btFile_Click(object sender, EventArgs e)
+        // Tạo dữ liệu giả lập (Trang 147)
+        public List<Employee> GetData()
         {
-            // Cấu hình PictureBox
-            pb.SizeMode = PictureBoxSizeMode.StretchImage;
-            pb.Size = new Size(100, 100);
-            pb.Location = new Point(x, y);
+            List<Employee> lst = new List<Employee>();
 
-            // Thêm PictureBox vào Form (quan trọng)
-            this.Controls.Add(pb);
+            Employee em = new Employee();
+            em.Id = "53418";
+            em.Name = "Trần Tiến";
+            em.Age = 20;
+            em.Gender = true;
+            lst.Add(em);
 
-            // Cách 1: Gán cứng như tài liệu (Máy bạn phải có file này thì mới chạy được)
-            // pb.ImageLocation = @"d:\abc.jpg";
+            em = new Employee();
+            em.Id = "53416";
+            em.Name = "Nguyễn Cường";
+            em.Age = 25;
+            em.Gender = false;
+            lst.Add(em);
 
-            // Cách 2: Dùng hộp thoại chọn ảnh (Khuyên dùng)
-            OpenFileDialog dlg = new OpenFileDialog();
-            dlg.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
-            if (dlg.ShowDialog() == DialogResult.OK)
+            em = new Employee();
+            em.Id = "53417";
+            em.Name = "Nguyễn Hào";
+            em.Age = 23;
+            em.Gender = true;
+            lst.Add(em);
+
+            return lst;
+        }
+
+        // Sự kiện Form Load (Trang 147)
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            lst = GetData();
+
+            // Gán dữ liệu vào BindingSource
+            bs.DataSource = lst;
+
+            // Gán BindingSource vào DataGridView
+            dgvEmployee.DataSource = bs;
+        }
+
+        // Sự kiện nút Thêm (Trang 147)
+        private void btAddNew_Click(object sender, EventArgs e)
+        {
+            Employee em = new Employee();
+            em.Id = tbId.Text;
+            em.Name = tbName.Text;
+
+            // Kiểm tra lỗi nhập liệu cho tuổi
+            int age = 0;
+            int.TryParse(tbAge.Text, out age);
+            em.Age = age;
+
+            em.Gender = ckGender.Checked;
+
+            // Thêm vào BindingSource (nó sẽ tự thêm vào List và Grid)
+            bs.Add(em);
+        }
+
+        // Sự kiện nút Xóa (Trang 148)
+        private void btDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvEmployee.CurrentCell != null)
             {
-                pb.ImageLocation = dlg.FileName;
+                int idx = dgvEmployee.CurrentCell.RowIndex;
+                // Xóa thông qua BindingSource
+                bs.RemoveAt(idx);
             }
         }
 
-        // Sự kiện nút sang Trái (Trang 152)
-        private void btLeft_Click(object sender, EventArgs e)
+        // Sự kiện click vào dòng (Trang 148)
+        private void dgvEmployee_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            x -= 10; // Giảm tọa độ X
-            pb.Location = new Point(x, y);
+            int idx = e.RowIndex;
+            // Kiểm tra index hợp lệ
+            if (idx >= 0 && idx < dgvEmployee.Rows.Count)
+            {
+                // Lấy giá trị hiển thị lên TextBox
+                tbId.Text = dgvEmployee.Rows[idx].Cells[0].Value.ToString();
+                tbName.Text = dgvEmployee.Rows[idx].Cells[1].Value.ToString();
+                tbAge.Text = dgvEmployee.Rows[idx].Cells[2].Value.ToString();
+                string genderValue = dgvEmployee.Rows[idx].Cells[3].Value.ToString();
+                ckGender.Checked = bool.Parse(genderValue);
+            }
         }
 
-        // Sự kiện nút sang Phải (Trang 152)
-        private void btRight_Click(object sender, EventArgs e)
+        private void btExit_Click(object sender, EventArgs e)
         {
-            x += 10; // Tăng tọa độ X
-            pb.Location = new Point(x, y);
+            this.Close();
         }
     }
 }

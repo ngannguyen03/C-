@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\C_NguyenNgocBaoNgan\\Ngan_2123110503\\Article14\\Article14.csproj": {}
+    "F:\\Ngan_2123110503\\Article14\\Article14.csproj": {}
   },
   "projects": {
-    "F:\\C_NguyenNgocBaoNgan\\Ngan_2123110503\\Article14\\Article14.csproj": {
+    "F:\\Ngan_2123110503\\Article14\\Article14.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\C_NguyenNgocBaoNgan\\Ngan_2123110503\\Article14\\Article14.csproj",
+        "projectUniqueName": "F:\\Ngan_2123110503\\Article14\\Article14.csproj",
         "projectName": "Article14",
-        "projectPath": "F:\\C_NguyenNgocBaoNgan\\Ngan_2123110503\\Article14\\Article14.csproj",
+        "projectPath": "F:\\Ngan_2123110503\\Article14\\Article14.csproj",
         "packagesPath": "C:\\Users\\NGUYEN NGOC BAO NGAN\\.nuget\\packages\\",
-        "outputPath": "F:\\C_NguyenNgocBaoNgan\\Ngan_2123110503\\Article14\\obj\\",
+        "outputPath": "F:\\Ngan_2123110503\\Article14\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

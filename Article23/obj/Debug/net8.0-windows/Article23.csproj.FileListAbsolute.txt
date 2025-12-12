@@ -1,0 +1,17 @@
+F:\Ngan_2123110503\Article23\bin\Debug\net8.0-windows\Article23.exe
+F:\Ngan_2123110503\Article23\bin\Debug\net8.0-windows\Article23.deps.json
+F:\Ngan_2123110503\Article23\bin\Debug\net8.0-windows\Article23.runtimeconfig.json
+F:\Ngan_2123110503\Article23\bin\Debug\net8.0-windows\Article23.dll
+F:\Ngan_2123110503\Article23\bin\Debug\net8.0-windows\Article23.pdb
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.csproj.GenerateResource.cache
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.GeneratedMSBuildEditorConfig.editorconfig
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.AssemblyInfoInputs.cache
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.AssemblyInfo.cs
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.csproj.CoreCompileInputs.cache
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.sourcelink.json
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.dll
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\refint\Article23.dll
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.pdb
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.genruntimeconfig.cache
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\ref\Article23.dll
+F:\Ngan_2123110503\Article23\obj\Debug\net8.0-windows\Article23.Form1.resources

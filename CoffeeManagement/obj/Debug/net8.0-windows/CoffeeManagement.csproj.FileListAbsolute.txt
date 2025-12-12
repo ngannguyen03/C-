@@ -1,0 +1,9 @@
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.csproj.AssemblyReference.cache
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.GUI.frmLogin.resources
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.GUI.frmProduct.resources
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.csproj.GenerateResource.cache
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.GeneratedMSBuildEditorConfig.editorconfig
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.AssemblyInfoInputs.cache
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.AssemblyInfo.cs
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.csproj.CoreCompileInputs.cache
+F:\Ngan_2123110503\CoffeeManagement\obj\Debug\net8.0-windows\CoffeeManagement.sourcelink.json

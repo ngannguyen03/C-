@@ -1,0 +1,17 @@
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.Form1.resources
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.csproj.GenerateResource.cache
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.GeneratedMSBuildEditorConfig.editorconfig
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.AssemblyInfoInputs.cache
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.AssemblyInfo.cs
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.csproj.CoreCompileInputs.cache
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.sourcelink.json
+F:\Ngan_2123110503\Article25\bin\Debug\net8.0-windows\Article25.exe
+F:\Ngan_2123110503\Article25\bin\Debug\net8.0-windows\Article25.deps.json
+F:\Ngan_2123110503\Article25\bin\Debug\net8.0-windows\Article25.runtimeconfig.json
+F:\Ngan_2123110503\Article25\bin\Debug\net8.0-windows\Article25.dll
+F:\Ngan_2123110503\Article25\bin\Debug\net8.0-windows\Article25.pdb
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.dll
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\refint\Article25.dll
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.pdb
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\Article25.genruntimeconfig.cache
+F:\Ngan_2123110503\Article25\obj\Debug\net8.0-windows\ref\Article25.dll

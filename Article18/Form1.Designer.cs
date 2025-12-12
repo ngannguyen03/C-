@@ -15,6 +15,10 @@
         private void InitializeComponent()
         {
             this.dgvEmployee = new System.Windows.Forms.DataGridView();
+            this.colId = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colAge = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colGender = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -31,11 +35,40 @@
             // dgvEmployee
             // 
             this.dgvEmployee.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEmployee.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.colId,
+            this.colName,
+            this.colAge,
+            this.colGender});
             this.dgvEmployee.Location = new System.Drawing.Point(12, 12);
             this.dgvEmployee.Name = "dgvEmployee";
             this.dgvEmployee.Size = new System.Drawing.Size(460, 180);
             this.dgvEmployee.TabIndex = 0;
             this.dgvEmployee.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvEmployee_RowEnter);
+            // 
+            // colId
+            // 
+            this.colId.HeaderText = "Mã nhân viên";
+            this.colId.Name = "colId";
+            // 
+            // colName
+            // 
+            this.colName.HeaderText = "Tên nhân viên";
+            this.colName.Name = "colName";
+            this.colName.Width = 150;
+            // 
+            // colAge
+            // 
+            this.colAge.HeaderText = "Tuổi";
+            this.colAge.Name = "colAge";
+            this.colAge.Width = 50;
+            // 
+            // colGender
+            // 
+            this.colGender.HeaderText = "Giới tính (Nam)";
+            this.colGender.Name = "colGender";
+            this.colGender.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.colGender.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // label1
             // 
@@ -142,7 +175,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.dgvEmployee);
             this.Name = "Form1";
-            this.Text = "BindingSource Example";
+            this.Text = "List Employee";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEmployee)).EndInit();
             this.ResumeLayout(false);
@@ -152,6 +185,10 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dgvEmployee;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colId;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colAge;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn colGender;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;

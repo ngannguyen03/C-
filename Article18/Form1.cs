@@ -13,16 +13,15 @@ namespace Article18
 {
     public partial class Form1 : Form
     {
-        // Khai báo danh sách và BindingSource
+        // Khai báo danh sách nhân viên
         List<Employee> lst;
-        BindingSource bs = new BindingSource();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        // Tạo dữ liệu giả lập (Trang 147)
+        // Tạo dữ liệu giả lập (Trang 139)
         public List<Employee> GetData()
         {
             List<Employee> lst = new List<Employee>();
@@ -31,7 +30,7 @@ namespace Article18
             em.Id = "53418";
             em.Name = "Trần Tiến";
             em.Age = 20;
-            em.Gender = true;
+            em.Gender = true; // Nam
             lst.Add(em);
 
             em = new Employee();
@@ -51,55 +50,54 @@ namespace Article18
             return lst;
         }
 
-        // Sự kiện Form Load (Trang 147)
+        // Sự kiện Form Load (Trang 140)
         private void Form1_Load(object sender, EventArgs e)
         {
             lst = GetData();
-
-            // Gán dữ liệu vào BindingSource
-            bs.DataSource = lst;
-
-            // Gán BindingSource vào DataGridView
-            dgvEmployee.DataSource = bs;
+            // Duyệt danh sách và đưa từng nhân viên lên Grid
+            foreach (Employee em in lst)
+            {
+                dgvEmployee.Rows.Add(em.Id, em.Name, em.Age, em.Gender);
+            }
         }
 
-        // Sự kiện nút Thêm (Trang 147)
+        // Sự kiện nút Thêm (Trang 141)
         private void btAddNew_Click(object sender, EventArgs e)
         {
+            // 1. Tạo đối tượng và thêm vào List
             Employee em = new Employee();
             em.Id = tbId.Text;
             em.Name = tbName.Text;
-
-            // Kiểm tra lỗi nhập liệu cho tuổi
-            int age = 0;
-            int.TryParse(tbAge.Text, out age);
-            em.Age = age;
-
+            em.Age = int.Parse(tbAge.Text);
             em.Gender = ckGender.Checked;
+            lst.Add(em);
 
-            // Thêm vào BindingSource (nó sẽ tự thêm vào List và Grid)
-            bs.Add(em);
+            // 2. Thêm hiển thị lên Grid
+            dgvEmployee.Rows.Add(tbId.Text, tbName.Text, tbAge.Text, ckGender.Checked);
         }
 
-        // Sự kiện nút Xóa (Trang 148)
+        // Sự kiện nút Xóa (Trang 142)
         private void btDelete_Click(object sender, EventArgs e)
         {
             if (dgvEmployee.CurrentCell != null)
             {
                 int idx = dgvEmployee.CurrentCell.RowIndex;
-                // Xóa thông qua BindingSource
-                bs.RemoveAt(idx);
+                if (idx < dgvEmployee.Rows.Count - 1 || (dgvEmployee.AllowUserToAddRows == false))
+                {
+                    // 1. Xóa trong List
+                    lst.RemoveAt(idx);
+                    // 2. Xóa trên Grid
+                    dgvEmployee.Rows.RemoveAt(idx);
+                }
             }
         }
 
-        // Sự kiện click vào dòng (Trang 148)
+        // Sự kiện click vào dòng (Trang 142)
         private void dgvEmployee_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
             int idx = e.RowIndex;
-            // Kiểm tra index hợp lệ
-            if (idx >= 0 && idx < dgvEmployee.Rows.Count)
+            if (idx >= 0 && idx < dgvEmployee.Rows.Count - 1)
             {
-                // Lấy giá trị hiển thị lên TextBox
                 tbId.Text = dgvEmployee.Rows[idx].Cells[0].Value.ToString();
                 tbName.Text = dgvEmployee.Rows[idx].Cells[1].Value.ToString();
                 tbAge.Text = dgvEmployee.Rows[idx].Cells[2].Value.ToString();

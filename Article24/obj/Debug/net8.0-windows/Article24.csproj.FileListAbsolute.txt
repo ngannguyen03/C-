@@ -1,0 +1,17 @@
+F:\Ngan_2123110503\Article24\bin\Debug\net8.0-windows\Article24.exe
+F:\Ngan_2123110503\Article24\bin\Debug\net8.0-windows\Article24.deps.json
+F:\Ngan_2123110503\Article24\bin\Debug\net8.0-windows\Article24.runtimeconfig.json
+F:\Ngan_2123110503\Article24\bin\Debug\net8.0-windows\Article24.dll
+F:\Ngan_2123110503\Article24\bin\Debug\net8.0-windows\Article24.pdb
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.Form1.resources
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.csproj.GenerateResource.cache
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.GeneratedMSBuildEditorConfig.editorconfig
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.AssemblyInfoInputs.cache
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.AssemblyInfo.cs
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.csproj.CoreCompileInputs.cache
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.sourcelink.json
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.dll
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\refint\Article24.dll
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.pdb
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\Article24.genruntimeconfig.cache
+F:\Ngan_2123110503\Article24\obj\Debug\net8.0-windows\ref\Article24.dll

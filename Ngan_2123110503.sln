@@ -57,7 +57,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Article26", "Article26\Arti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MenuApp", "MenuApp\MenuApp.csproj", "{9C716794-65F6-45A6-97E9-05DE917ECAEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoffeeManagement", "CoffeeManagement\CoffeeManagement.csproj", "{3FAB2B90-EF18-4FC6-94C4-EA3952E9A953}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuanLyShopQuanAo", "QuanLyShopQuanAo\QuanLyShopQuanAo.csproj", "{70DA66C9-59A9-4045-9768-F5DBC32CD208}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,10 +173,10 @@ Global
 		{9C716794-65F6-45A6-97E9-05DE917ECAEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C716794-65F6-45A6-97E9-05DE917ECAEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C716794-65F6-45A6-97E9-05DE917ECAEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3FAB2B90-EF18-4FC6-94C4-EA3952E9A953}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3FAB2B90-EF18-4FC6-94C4-EA3952E9A953}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3FAB2B90-EF18-4FC6-94C4-EA3952E9A953}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3FAB2B90-EF18-4FC6-94C4-EA3952E9A953}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70DA66C9-59A9-4045-9768-F5DBC32CD208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70DA66C9-59A9-4045-9768-F5DBC32CD208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70DA66C9-59A9-4045-9768-F5DBC32CD208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70DA66C9-59A9-4045-9768-F5DBC32CD208}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

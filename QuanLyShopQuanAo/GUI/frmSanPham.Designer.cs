@@ -14,6 +14,8 @@
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panelTop = new Panel();
             label1 = new Label();
             groupBox1 = new GroupBox();
@@ -47,22 +49,21 @@
             // 
             // panelTop
             // 
-            panelTop.BackColor = Color.FromArgb(41, 128, 185);
+            panelTop.BackColor = Color.MidnightBlue;
             panelTop.Controls.Add(label1);
             panelTop.Dock = DockStyle.Top;
             panelTop.Location = new Point(0, 0);
-            panelTop.Margin = new Padding(4, 5, 4, 5);
             panelTop.Name = "panelTop";
             panelTop.Size = new Size(1179, 77);
             panelTop.TabIndex = 0;
             // 
             // label1
             // 
+            label1.BackColor = Color.MidnightBlue;
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 20F, FontStyle.Bold);
             label1.ForeColor = Color.White;
             label1.Location = new Point(0, 0);
-            label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(1179, 77);
             label1.TabIndex = 0;
@@ -71,6 +72,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(txtSoLuong);
             groupBox1.Controls.Add(label5);
             groupBox1.Controls.Add(txtDonGia);
@@ -82,9 +84,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             groupBox1.Location = new Point(0, 77);
-            groupBox1.Margin = new Padding(4, 5, 4, 5);
             groupBox1.Name = "groupBox1";
-            groupBox1.Padding = new Padding(4, 5, 4, 5);
             groupBox1.Size = new Size(1179, 167);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
@@ -94,17 +94,15 @@
             // 
             txtSoLuong.Font = new Font("Segoe UI", 10F);
             txtSoLuong.Location = new Point(733, 108);
-            txtSoLuong.Margin = new Padding(4, 5, 4, 5);
             txtSoLuong.Name = "txtSoLuong";
             txtSoLuong.Size = new Size(265, 30);
-            txtSoLuong.TabIndex = 7;
+            txtSoLuong.TabIndex = 3;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI", 10F);
             label5.Location = new Point(613, 112);
-            label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(78, 23);
             label5.TabIndex = 6;
@@ -114,17 +112,15 @@
             // 
             txtDonGia.Font = new Font("Segoe UI", 10F);
             txtDonGia.Location = new Point(733, 46);
-            txtDonGia.Margin = new Padding(4, 5, 4, 5);
             txtDonGia.Name = "txtDonGia";
             txtDonGia.Size = new Size(265, 30);
-            txtDonGia.TabIndex = 5;
+            txtDonGia.TabIndex = 2;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI", 10F);
             label4.Location = new Point(613, 51);
-            label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(70, 23);
             label4.TabIndex = 4;
@@ -134,17 +130,15 @@
             // 
             txtTenSP.Font = new Font("Segoe UI", 10F);
             txtTenSP.Location = new Point(173, 108);
-            txtTenSP.Margin = new Padding(4, 5, 4, 5);
             txtTenSP.Name = "txtTenSP";
             txtTenSP.Size = new Size(265, 30);
-            txtTenSP.TabIndex = 3;
+            txtTenSP.TabIndex = 1;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 10F);
             label3.Location = new Point(40, 112);
-            label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(116, 23);
             label3.TabIndex = 2;
@@ -152,19 +146,19 @@
             // 
             // txtMaSP
             // 
+            txtMaSP.BackColor = Color.FromArgb(236, 240, 241);
             txtMaSP.Font = new Font("Segoe UI", 10F);
             txtMaSP.Location = new Point(173, 46);
-            txtMaSP.Margin = new Padding(4, 5, 4, 5);
             txtMaSP.Name = "txtMaSP";
+            txtMaSP.ReadOnly = true;
             txtMaSP.Size = new Size(265, 30);
-            txtMaSP.TabIndex = 1;
+            txtMaSP.TabIndex = 0;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 10F);
             label2.Location = new Point(40, 51);
-            label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(114, 23);
             label2.TabIndex = 0;
@@ -183,7 +177,6 @@
             panelButton.Controls.Add(btnThem);
             panelButton.Dock = DockStyle.Bottom;
             panelButton.Location = new Point(0, 709);
-            panelButton.Margin = new Padding(4, 5, 4, 5);
             panelButton.Name = "panelButton";
             panelButton.Size = new Size(1179, 154);
             panelButton.TabIndex = 2;
@@ -193,10 +186,9 @@
             txtTimKiem.Font = new Font("Segoe UI", 10F);
             txtTimKiem.ForeColor = Color.Gray;
             txtTimKiem.Location = new Point(45, 23);
-            txtTimKiem.Margin = new Padding(4, 5, 4, 5);
             txtTimKiem.Name = "txtTimKiem";
             txtTimKiem.Size = new Size(265, 30);
-            txtTimKiem.TabIndex = 7;
+            txtTimKiem.TabIndex = 10;
             txtTimKiem.Text = "Nhập tên sản phẩm...";
             txtTimKiem.Enter += txtTimKiem_Enter;
             txtTimKiem.Leave += txtTimKiem_Leave;
@@ -209,10 +201,9 @@
             btnTimKiem.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnTimKiem.ForeColor = Color.White;
             btnTimKiem.Location = new Point(320, 20);
-            btnTimKiem.Margin = new Padding(4, 5, 4, 5);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(120, 36);
-            btnTimKiem.TabIndex = 6;
+            btnTimKiem.TabIndex = 11;
             btnTimKiem.Text = "🔍 Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = false;
             btnTimKiem.Click += btnTimKiem_Click;
@@ -225,10 +216,9 @@
             btnDong.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnDong.ForeColor = Color.White;
             btnDong.Location = new Point(1000, 77);
-            btnDong.Margin = new Padding(4, 5, 4, 5);
             btnDong.Name = "btnDong";
             btnDong.Size = new Size(133, 54);
-            btnDong.TabIndex = 5;
+            btnDong.TabIndex = 9;
             btnDong.Text = "❌ Đóng";
             btnDong.UseVisualStyleBackColor = false;
             btnDong.Click += btnDong_Click;
@@ -241,10 +231,9 @@
             btnBoQua.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnBoQua.ForeColor = Color.White;
             btnBoQua.Location = new Point(840, 77);
-            btnBoQua.Margin = new Padding(4, 5, 4, 5);
             btnBoQua.Name = "btnBoQua";
             btnBoQua.Size = new Size(133, 54);
-            btnBoQua.TabIndex = 4;
+            btnBoQua.TabIndex = 8;
             btnBoQua.Text = "🔄 Bỏ qua";
             btnBoQua.UseVisualStyleBackColor = false;
             btnBoQua.Click += btnBoQua_Click;
@@ -257,10 +246,9 @@
             btnLuu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnLuu.ForeColor = Color.White;
             btnLuu.Location = new Point(680, 77);
-            btnLuu.Margin = new Padding(4, 5, 4, 5);
             btnLuu.Name = "btnLuu";
             btnLuu.Size = new Size(133, 54);
-            btnLuu.TabIndex = 3;
+            btnLuu.TabIndex = 7;
             btnLuu.Text = "💾 Lưu";
             btnLuu.UseVisualStyleBackColor = false;
             btnLuu.Click += btnLuu_Click;
@@ -273,10 +261,9 @@
             btnXoa.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnXoa.ForeColor = Color.White;
             btnXoa.Location = new Point(360, 77);
-            btnXoa.Margin = new Padding(4, 5, 4, 5);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(133, 54);
-            btnXoa.TabIndex = 2;
+            btnXoa.TabIndex = 6;
             btnXoa.Text = "🗑️ Xóa";
             btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Click += btnXoa_Click;
@@ -289,10 +276,9 @@
             btnSua.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnSua.ForeColor = Color.White;
             btnSua.Location = new Point(200, 77);
-            btnSua.Margin = new Padding(4, 5, 4, 5);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(133, 54);
-            btnSua.TabIndex = 1;
+            btnSua.TabIndex = 5;
             btnSua.Text = "📝 Sửa";
             btnSua.UseVisualStyleBackColor = false;
             btnSua.Click += btnSua_Click;
@@ -305,10 +291,9 @@
             btnThem.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnThem.ForeColor = Color.White;
             btnThem.Location = new Point(40, 77);
-            btnThem.Margin = new Padding(4, 5, 4, 5);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(133, 54);
-            btnThem.TabIndex = 0;
+            btnThem.TabIndex = 4;
             btnThem.Text = "➕ Thêm";
             btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThem_Click;
@@ -317,13 +302,32 @@
             // 
             dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSanPham.BackgroundColor = Color.White;
-            dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvSanPham.BorderStyle = BorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.MidnightBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvSanPham.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvSanPham.ColumnHeadersHeight = 40;
             dgvSanPham.Columns.AddRange(new DataGridViewColumn[] { colMaSP, colTenSP, colSoLuong, colDonGia });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = Color.Silver;
+            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvSanPham.DefaultCellStyle = dataGridViewCellStyle2;
             dgvSanPham.Dock = DockStyle.Fill;
+            dgvSanPham.EnableHeadersVisualStyles = false;
             dgvSanPham.Location = new Point(0, 244);
-            dgvSanPham.Margin = new Padding(4, 5, 4, 5);
             dgvSanPham.Name = "dgvSanPham";
+            dgvSanPham.RowHeadersVisible = false;
             dgvSanPham.RowHeadersWidth = 51;
+            dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSanPham.Size = new Size(1179, 465);
             dgvSanPham.TabIndex = 3;
             dgvSanPham.CellClick += dgvSanPham_CellClick;
@@ -362,7 +366,6 @@
             Controls.Add(panelButton);
             Controls.Add(groupBox1);
             Controls.Add(panelTop);
-            Margin = new Padding(4, 5, 4, 5);
             Name = "frmSanPham";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Hệ thống quản lý sản phẩm";

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
@@ -7,64 +8,119 @@ namespace QuanLyShopQuanAo.GUI
 {
     public partial class frmBanHang : Form
     {
+        // Tạo cấu trúc dữ liệu mẫu để chọn
+        struct SanPham
+        {
+            public string MaSP;
+            public string TenSP;
+            public double DonGia;
+            public override string ToString() => MaSP + " - " + TenSP;
+        }
+
+        List<SanPham> danhSachSP = new List<SanPham>();
+
         public frmBanHang()
         {
             InitializeComponent();
+            // Chỉ cho nhập số vào ô số lượng
+            txtSoLuong.KeyPress += (s, e) => {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar)) e.Handled = true;
+            };
         }
 
         private void frmBanHang_Load(object sender, EventArgs e)
         {
-            ResetHoaDon();
             LoadDataDemo();
+            ResetHoaDon();
         }
 
         private void LoadDataDemo()
         {
-            // Thêm dữ liệu giả lập cho ComboBox
-            cboNhanVien.Items.AddRange(new string[] { "NV01 - Nguyễn Văn A", "NV02 - Trần Thị B" });
-            cboKhachHang.Items.AddRange(new string[] { "KH01 - Khách lẻ", "KH02 - Nguyễn Văn C" });
-            cboMaSP.Items.AddRange(new string[] { "SP01 - Áo thun Polo", "SP02 - Quần Jean", "SP03 - Áo khoác" });
+            // 1. Dữ liệu Nhân viên
+            cboNhanVien.Items.AddRange(new string[] { "NV01 - Bảo Ngân", "NV02 - Hoàng Gia", "NV03 - Lê Bình" });
 
-            cboNhanVien.SelectedIndex = 0;
-            cboKhachHang.SelectedIndex = 0;
+            // 2. Dữ liệu Khách hàng
+            cboKhachHang.Items.AddRange(new string[] { "KH00 - Khách vãng lai", "KH01 - Nguyễn Văn A", "KH02 - Trần Thị B" });
+
+            // 3. Dữ liệu Sản phẩm (Dùng List để truy xuất giá nhanh)
+            danhSachSP.Add(new SanPham { MaSP = "SP01", TenSP = "Áo thun Polo Nam", DonGia = 150000 });
+            danhSachSP.Add(new SanPham { MaSP = "SP02", TenSP = "Quần Jean Slimfit", DonGia = 350000 });
+            danhSachSP.Add(new SanPham { MaSP = "SP03", TenSP = "Áo khoác Hoodie", DonGia = 450000 });
+            danhSachSP.Add(new SanPham { MaSP = "SP04", TenSP = "Sơ mi trắng Oxford", DonGia = 280000 });
+
+            cboMaSP.Items.Clear();
+            foreach (var sp in danhSachSP)
+            {
+                cboMaSP.Items.Add(sp);
+            }
         }
 
         private void ResetHoaDon()
         {
             txtMaHDBan.Text = "HDB" + DateTime.Now.ToString("ddMMyyHHmm");
             dtpNgayBan.Value = DateTime.Now;
-            txtSoLuong.Text = "";
+            txtSoLuong.Text = "1";
             txtTenSP.Text = "";
             txtDonGia.Text = "0";
             txtThanhTien.Text = "0";
             lblTongTien.Text = "0 VNĐ";
             dgvHDBanHang.Rows.Clear();
+            cboNhanVien.SelectedIndex = 0;
+            cboKhachHang.SelectedIndex = 0;
+            cboMaSP.SelectedIndex = -1;
         }
 
-        // ================= TỰ ĐỘNG TÍNH TOÁN =================
+        // Khi chọn sản phẩm -> Tự nhảy tên và đơn giá
+        private void cboMaSP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cboMaSP.SelectedIndex != -1)
+            {
+                SanPham spChon = (SanPham)cboMaSP.SelectedItem;
+                txtTenSP.Text = spChon.TenSP;
+                txtDonGia.Text = spChon.DonGia.ToString();
+                TinhThanhTien();
+            }
+        }
+
         private void TxtSoLuong_TextChanged(object sender, EventArgs e)
         {
             TinhThanhTien();
         }
 
-        private void cboMaSP_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            // Giả lập lấy giá sản phẩm khi chọn
-            if (cboMaSP.SelectedIndex == 0) { txtTenSP.Text = "Áo thun Polo"; txtDonGia.Text = "150000"; }
-            if (cboMaSP.SelectedIndex == 1) { txtTenSP.Text = "Quần Jean"; txtDonGia.Text = "350000"; }
-            if (cboMaSP.SelectedIndex == 2) { txtTenSP.Text = "Áo khoác"; txtDonGia.Text = "500000"; }
-            TinhThanhTien();
-        }
-
         private void TinhThanhTien()
         {
-            try
+            if (double.TryParse(txtSoLuong.Text, out double sl) && double.TryParse(txtDonGia.Text, out double dg))
             {
-                double sl = string.IsNullOrEmpty(txtSoLuong.Text) ? 0 : double.Parse(txtSoLuong.Text);
-                double dg = string.IsNullOrEmpty(txtDonGia.Text) ? 0 : double.Parse(txtDonGia.Text);
-                txtThanhTien.Text = (sl * dg).ToString();
+                txtThanhTien.Text = (sl * dg).ToString("N0");
             }
-            catch { txtThanhTien.Text = "0"; }
+            else
+            {
+                txtThanhTien.Text = "0";
+            }
+        }
+
+        private void btnThemSP_Click(object sender, EventArgs e)
+        {
+            if (cboMaSP.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn sản phẩm!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrEmpty(txtSoLuong.Text) || int.Parse(txtSoLuong.Text) <= 0)
+            {
+                MessageBox.Show("Số lượng phải lớn hơn 0!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            SanPham sp = (SanPham)cboMaSP.SelectedItem;
+            int sl = int.Parse(txtSoLuong.Text);
+            double tt = sl * sp.DonGia;
+
+            // Thêm vào lưới
+            dgvHDBanHang.Rows.Add(sp.MaSP, sp.TenSP, sl, sp.DonGia.ToString("N0"), tt.ToString("N0"), tt);
+
+            TinhTongTien();
         }
 
         private void TinhTongTien()
@@ -72,62 +128,33 @@ namespace QuanLyShopQuanAo.GUI
             double tong = 0;
             foreach (DataGridViewRow row in dgvHDBanHang.Rows)
             {
-                tong += Convert.ToDouble(row.Cells[4].Value);
+                tong += Convert.ToDouble(row.Cells[5].Value); // Cột ẩn chứa giá trị số
             }
             lblTongTien.Text = string.Format("{0:N0} VNĐ", tong);
         }
 
-        // ================= THÊM SẢN PHẨM VÀO GIỎ =================
-        private void btnThemSP_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtSoLuong.Text) || cboMaSP.SelectedIndex < 0)
-            {
-                MessageBox.Show("Vui lòng chọn sản phẩm và nhập số lượng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            string maSP = cboMaSP.Text.Split('-')[0].Trim();
-            dgvHDBanHang.Rows.Add(maSP, txtTenSP.Text, txtSoLuong.Text, txtDonGia.Text, txtThanhTien.Text);
-            TinhTongTien();
-        }
-
-        // ================= XỬ LÝ HỦY HÓA ĐƠN (XÁC NHẬN XÓA) =================
         private void btnXoa_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn hủy toàn bộ hóa đơn này không?",
-                "⚠️ XÁC NHẬN HỦY", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            if (result == DialogResult.Yes)
-            {
+            if (MessageBox.Show("Xác nhận hủy hóa đơn?", "Hỏi", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 ResetHoaDon();
-            }
-        }
-
-        // ================= POPUP CHI TIẾT DÒNG HÀNG =================
-        private void dgvHDBanHang_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0) return;
-            DataGridViewRow row = dgvHDBanHang.Rows[e.RowIndex];
-            string info = $"📦 Sản phẩm: {row.Cells[1].Value}\n" +
-                          $"🔢 Số lượng: {row.Cells[2].Value}\n" +
-                          $"💰 Đơn giá: {row.Cells[3].Value}\n" +
-                          $"💵 Thành tiền: {row.Cells[4].Value}";
-            MessageBox.Show(info, "CHI TIẾT MẶT HÀNG", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void btnLuu_Click(object sender, EventArgs e)
         {
             if (dgvHDBanHang.Rows.Count == 0)
             {
-                MessageBox.Show("Chưa có mặt hàng nào trong hóa đơn!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Giỏ hàng trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
-            MessageBox.Show("Đã lưu hóa đơn thành công vào hệ thống!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Đã lưu hóa đơn " + txtMaHDBan.Text + " vào hệ thống!", "Thành công");
             ResetHoaDon();
         }
 
+        private void btnDong_Click(object sender, EventArgs e) => this.Close();
+
         private void btnInHoaDon_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Đang kết nối máy in...", "In hóa đơn", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Đang xuất hóa đơn ra máy in...", "Print");
         }
 
         private void btnThemMoi_Click(object sender, EventArgs e) => ResetHoaDon();

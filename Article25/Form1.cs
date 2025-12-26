@@ -1,142 +1,330 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace Article25
 {
     public partial class Form1 : Form
     {
-        // 1. KHAI BÁO ĐỐI TƯỢNG (Trang 176)
-        PictureBox pbBasket = new PictureBox(); // Cái giỏ
-        PictureBox pbEgg = new PictureBox();    // Quả trứng
-        PictureBox pbChicken = new PictureBox();// Con gà
+        // ================= OBJECT =================
+        PictureBox pbBasket = new PictureBox();
 
-        System.Windows.Forms.Timer tmEgg = new System.Windows.Forms.Timer();
-        System.Windows.Forms.Timer tmChicken = new System.Windows.Forms.Timer();
-        // 2. KHAI BÁO BIẾN TỌA ĐỘ VÀ TỐC ĐỘ (Trang 176)
-        // --- Giỏ ---
+        PictureBox pbChicken1 = new PictureBox();
+        PictureBox pbChicken2 = new PictureBox();
+
+        PictureBox pbEgg1 = new PictureBox();
+        PictureBox pbEgg2 = new PictureBox();
+
+        PictureBox pbBrokenEgg = new PictureBox();
+
+        Button btnStart = new Button();
+        Button btnRestart = new Button();
+
+        System.Windows.Forms.Timer tmGame = new System.Windows.Forms.Timer();
+        System.Windows.Forms.Timer tmBrokenEgg = new System.Windows.Forms.Timer();
+
+        // ================= VARIABLE =================
         int xBasket = 300;
-        int yBasket = 500;
-        int xDeltaBasket = 30;
+        int yBasket = 520; // 🔴 nâng giỏ cao hơn
+        int speedBasket = 20;
 
-        // --- Gà ---
-        int xChicken = 300;
+        int xChicken1 = 200, xChicken2 = 500;
         int yChicken = 10;
-        int xDeltaChicken = 5; // Tốc độ gà chạy ngang
+        int dxChicken1 = 5, dxChicken2 = -6;
 
-        // --- Trứng ---
-        int xEgg = 300;
-        int yEgg = 10;
-        int yDeltaEgg = 5;     // Tốc độ trứng rơi dọc
+        int xEgg1, xEgg2;
+        int yEgg1 = 0, yEgg2 = 0;
+        int dyEgg = 5;
+
+        int score = 0;
+        int level = 1;
+        int life = 3;
+
+        bool gameRunning = false;
+        bool gameOver = false;
+
+        bool dragging = false;
+        Point mouseOffset;
+
+        Label lblScore = new Label();
+        Label lblLevel = new Label();
+        Label lblLife = new Label();
+
+        Random rnd = new Random();
 
         public Form1()
         {
             InitializeComponent();
         }
 
-        // 3. SỰ KIỆN LOAD FORM (Trang 177, 178)
+        // ================= LOAD =================
         private void Form1_Load(object sender, EventArgs e)
         {
-            // --- Cấu hình Timer ---
-            tmEgg.Interval = 10;
-            tmEgg.Tick += tmEgg_Tick;
-            tmEgg.Start();
+            this.DoubleBuffered = true;
+            this.KeyPreview = true;
 
-            tmChicken.Interval = 10;
-            tmChicken.Tick += tmChicken_Tick;
-            tmChicken.Start();
+            // TIMER (CHƯA START)
+            tmGame.Interval = 15;
+            tmGame.Tick += GameLoop;
 
-            // --- Cấu hình Cái Giỏ (Basket) ---
-            pbBasket.SizeMode = PictureBoxSizeMode.StretchImage;
+            // ---------------- GIỎ ----------------
             pbBasket.Size = new Size(100, 100);
             pbBasket.Location = new Point(xBasket, yBasket);
-            pbBasket.BackColor = Color.Transparent;
+            pbBasket.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbBasket.MouseDown += BasketDown;
+            pbBasket.MouseMove += BasketMove;
+            pbBasket.MouseUp += BasketUp;
             this.Controls.Add(pbBasket);
+            pbBasket.BringToFront(); // 🔴 QUAN TRỌNG
 
-            // --- Cấu hình Con Gà (Chicken) ---
-            pbChicken.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbChicken.Size = new Size(100, 100);
-            pbChicken.Location = new Point(xChicken, yChicken);
-            pbChicken.BackColor = Color.Transparent;
-            this.Controls.Add(pbChicken);
+            // ---------------- GÀ ----------------
+            SetupChicken(pbChicken1, xChicken1);
+            SetupChicken(pbChicken2, xChicken2);
+            pbChicken2.Visible = false;
 
-            // --- Cấu hình Quả Trứng (Egg) ---
-            pbEgg.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbEgg.Size = new Size(50, 50);
-            pbEgg.Location = new Point(xEgg, yEgg);
-            pbEgg.BackColor = Color.Transparent;
-            this.Controls.Add(pbEgg);
+            // ---------------- TRỨNG ----------------
+            SetupEgg(pbEgg1);
+            SetupEgg(pbEgg2);
+            pbEgg2.Visible = false;
 
-            // --- Load Hình Ảnh ---
-            try
+            // ---------------- TRỨNG VỠ ----------------
+            pbBrokenEgg.Size = new Size(50, 50);
+            pbBrokenEgg.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbBrokenEgg.Visible = false;
+            this.Controls.Add(pbBrokenEgg);
+            pbBrokenEgg.BringToFront();
+
+            tmBrokenEgg.Interval = 300;
+            tmBrokenEgg.Tick += (s, ev) =>
             {
-                pbBasket.Image = Image.FromFile(
-                    Path.Combine(Application.StartupPath, "Images", "basket.png")
-                );
+                pbBrokenEgg.Visible = false;
+                tmBrokenEgg.Stop();
+            };
 
-                pbChicken.Image = Image.FromFile(
-                    Path.Combine(Application.StartupPath, "Images", "chicken.png")
-                );
+            // ---------------- LABEL ----------------
+            SetupLabel(lblScore, "Score: 0", 10, 10);
+            SetupLabel(lblLevel, "Level: 1", 10, 40);
+            SetupLabel(lblLife, "Life: 3", 10, 70);
 
-                pbEgg.Image = Image.FromFile(
-                    Path.Combine(Application.StartupPath, "Images", "egg_gold.png")
-                );
-            }
-            catch
+            // ---------------- BUTTON START ----------------
+            btnStart.Text = "Bắt đầu";
+            btnStart.Size = new Size(120, 40);
+            btnStart.Location = new Point(
+                this.ClientSize.Width / 2 - 60,
+                this.ClientSize.Height / 2 - 50);
+            btnStart.Click += (s, ev) => StartGame();
+            this.Controls.Add(btnStart);
 
-            {
-                // Nếu lỗi ảnh thì hiển thị màu để test
-                pbBasket.BackColor = Color.Red;
-                pbChicken.BackColor = Color.Blue;
-                pbEgg.BackColor = Color.Yellow;
-            }
+            // ---------------- BUTTON RESTART ----------------
+            btnRestart.Text = "Chơi lại";
+            btnRestart.Size = new Size(120, 40);
+            btnRestart.Location = new Point(
+                this.ClientSize.Width / 2 - 60,
+                this.ClientSize.Height / 2 + 10);
+            btnRestart.Visible = false;
+            btnRestart.Click += (s, ev) => RestartGame();
+            this.Controls.Add(btnRestart);
+
+            // ---------------- LOAD IMAGE ----------------
+            pbBasket.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "basket.png"));
+            pbChicken1.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "chicken.png"));
+            pbChicken2.Image = pbChicken1.Image;
+            pbEgg1.Image = Image.FromFile(Path.Combine(Application.StartupPath, "Images", "egg_gold.png"));
+            pbEgg2.Image = pbEgg1.Image;
+            pbBrokenEgg.Image = Image.FromFile(
+                Path.Combine(Application.StartupPath, "Images", "egg_gold_broken.png"));
         }
 
-        // 4. SỰ KIỆN TRỨNG RƠI (Trang 179)
-        void tmEgg_Tick(object sender, EventArgs e)
+        // ================= START GAME =================
+        void StartGame()
         {
-            yEgg += yDeltaEgg; // Trứng rơi xuống
+            btnStart.Visible = false;
+            gameRunning = true;
+            gameOver = false;
 
-            // Nếu trứng chạm đáy (hoặc rơi quá tầm nhìn)
-            if (yEgg > this.ClientSize.Height - pbEgg.Height || yEgg <= 0)
-            {
-                // Reset trứng về vị trí TRÊN CAO (y = 30)
-                yEgg = 30;
-                // QUAN TRỌNG: Trứng xuất hiện tại vị trí CON GÀ đang đứng
-                xEgg = pbChicken.Location.X + (pbChicken.Width / 2) - (pbEgg.Width / 2);
-            }
+            ResetEgg(pbChicken1, pbEgg1, ref yEgg1, ref xEgg1);
+            ResetEgg(pbChicken2, pbEgg2, ref yEgg2, ref xEgg2);
 
-            // Cập nhật vị trí trứng
-            pbEgg.Location = new Point(xEgg, yEgg);
+            tmGame.Start();
         }
 
-        // 5. SỰ KIỆN GÀ DI CHUYỂN (Trang 179)
-        void tmChicken_Tick(object sender, EventArgs e)
+        // ================= GAME LOOP =================
+        void GameLoop(object sender, EventArgs e)
         {
-            xChicken += xDeltaChicken; // Gà chạy ngang
+            if (!gameRunning || gameOver) return;
 
-            // Nếu gà chạm mép phải HOẶC chạm mép trái màn hình
-            if (xChicken > this.ClientSize.Width - pbChicken.Width || xChicken <= 0)
-            {
-                xDeltaChicken = -xDeltaChicken; // Đảo chiều di chuyển
-            }
+            MoveChicken();
 
-            // Cập nhật vị trí gà
-            pbChicken.Location = new Point(xChicken, yChicken);
+            DropEgg(pbEgg1, pbChicken1, ref yEgg1, ref xEgg1);
+
+            if (level >= 3)
+                DropEgg(pbEgg2, pbChicken2, ref yEgg2, ref xEgg2);
         }
 
-        // 6. SỰ KIỆN DI CHUYỂN GIỎ BẰNG PHÍM (Trang 180)
+        // ================= DROP EGG =================
+        void DropEgg(PictureBox egg, PictureBox chicken, ref int yEgg, ref int xEgg)
+        {
+            egg.Visible = true;
+            yEgg += dyEgg;
+            egg.Location = new Point(xEgg, yEgg);
+
+            // ✅ VA CHẠM CHẮC CHẮN
+            if (egg.Bounds.IntersectsWith(pbBasket.Bounds))
+            {
+                score++;
+                lblScore.Text = "Score: " + score;
+                CheckLevel();
+                ResetEgg(chicken, egg, ref yEgg, ref xEgg);
+            }
+            else if (yEgg > this.ClientSize.Height - egg.Height)
+            {
+                life--;
+                lblLife.Text = "Life: " + life;
+
+                pbBrokenEgg.Location = new Point(xEgg,
+                    this.ClientSize.Height - egg.Height);
+                pbBrokenEgg.Visible = true;
+                tmBrokenEgg.Start();
+
+                if (life <= 0)
+                    GameOver();
+                else
+                    ResetEgg(chicken, egg, ref yEgg, ref xEgg);
+            }
+        }
+
+        // ================= LEVEL =================
+        void CheckLevel()
+        {
+            if (score >= 80 && level == 2)
+            {
+                level = 3;
+                lblLevel.Text = "Level: 3";
+                pbChicken2.Visible = true;
+                pbEgg2.Visible = true;
+                dyEgg = 10;
+            }
+            else if (score >= 30 && level == 1)
+            {
+                level = 2;
+                lblLevel.Text = "Level: 2";
+                dyEgg = 8;
+                dxChicken1 = 7;
+            }
+        }
+
+        // ================= GAME OVER =================
+        void GameOver()
+        {
+            gameOver = true;
+            tmGame.Stop();
+            btnRestart.Visible = true;
+            MessageBox.Show("GAME OVER!", "Thông báo");
+        }
+
+        // ================= RESTART =================
+        void RestartGame()
+        {
+            score = 0;
+            level = 1;
+            life = 3;
+            dyEgg = 5;
+            dxChicken1 = 5;
+
+            lblScore.Text = "Score: 0";
+            lblLevel.Text = "Level: 1";
+            lblLife.Text = "Life: 3";
+
+            pbChicken2.Visible = false;
+            pbEgg2.Visible = false;
+            btnRestart.Visible = false;
+            gameOver = false;
+            gameRunning = true;
+
+            ResetEgg(pbChicken1, pbEgg1, ref yEgg1, ref xEgg1);
+            ResetEgg(pbChicken2, pbEgg2, ref yEgg2, ref xEgg2);
+
+            tmGame.Start();
+        }
+
+        // ================= SUPPORT =================
+        void ResetEgg(PictureBox chicken, PictureBox egg, ref int yEgg, ref int xEgg)
+        {
+            yEgg = chicken.Bottom;
+            xEgg = chicken.Left + chicken.Width / 2 - egg.Width / 2;
+        }
+
+        void MoveChicken()
+        {
+            xChicken1 += dxChicken1;
+            if (xChicken1 <= 0 || xChicken1 >= this.ClientSize.Width - pbChicken1.Width)
+                dxChicken1 = -dxChicken1;
+            pbChicken1.Location = new Point(xChicken1, yChicken);
+
+            if (level >= 3)
+            {
+                xChicken2 += dxChicken2;
+                if (xChicken2 <= 0 || xChicken2 >= this.ClientSize.Width - pbChicken2.Width)
+                    dxChicken2 = -dxChicken2;
+                pbChicken2.Location = new Point(xChicken2, yChicken);
+            }
+        }
+
+        // ================= INPUT =================
         private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
-            // Phím Mũi tên Phải (Right)
-            if (e.KeyValue == 39 && (xBasket < this.ClientSize.Width - pbBasket.Width))
-                xBasket += xDeltaBasket;
-
-            // Phím Mũi tên Trái (Left)
-            if (e.KeyValue == 37 && xBasket > 0)
-                xBasket -= xDeltaBasket;
+            if (e.KeyCode == Keys.Left && xBasket > 0)
+                xBasket -= speedBasket;
+            if (e.KeyCode == Keys.Right && xBasket < this.ClientSize.Width - pbBasket.Width)
+                xBasket += speedBasket;
 
             pbBasket.Location = new Point(xBasket, yBasket);
+        }
+
+        void BasketDown(object s, MouseEventArgs e)
+        {
+            dragging = true;
+            mouseOffset = e.Location;
+        }
+
+        void BasketMove(object s, MouseEventArgs e)
+        {
+            if (!dragging) return;
+            int newX = pbBasket.Left + e.X - mouseOffset.X;
+            newX = Math.Max(0, Math.Min(newX, this.ClientSize.Width - pbBasket.Width));
+            xBasket = newX;
+            pbBasket.Location = new Point(xBasket, yBasket);
+        }
+
+        void BasketUp(object s, MouseEventArgs e)
+        {
+            dragging = false;
+        }
+
+        // ================= SETUP =================
+        void SetupChicken(PictureBox pb, int x)
+        {
+            pb.Size = new Size(100, 100);
+            pb.Location = new Point(x, yChicken);
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.Controls.Add(pb);
+        }
+
+        void SetupEgg(PictureBox pb)
+        {
+            pb.Size = new Size(50, 50);
+            pb.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.Controls.Add(pb);
+        }
+
+        void SetupLabel(Label lbl, string text, int x, int y)
+        {
+            lbl.Text = text;
+            lbl.Location = new Point(x, y);
+            lbl.Font = new Font("Arial", 14, FontStyle.Bold);
+            lbl.AutoSize = true;
+            this.Controls.Add(lbl);
         }
     }
 }

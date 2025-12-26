@@ -51,19 +51,20 @@
             panelHeader.Location = new Point(0, 0);
             panelHeader.Margin = new Padding(4, 5, 4, 5);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(1200, 77);
+            panelHeader.Size = new Size(1189, 77);
             panelHeader.TabIndex = 0;
             // 
             // label1
             // 
-            label1.BackColor = Color.SteelBlue;
+            label1.BackColor = Color.MidnightBlue;
             label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            label1.Enabled = true;
+            label1.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             label1.ForeColor = Color.White;
             label1.Location = new Point(0, 0);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(1200, 77);
+            label1.Size = new Size(1189, 77);
             label1.TabIndex = 0;
             label1.Text = "THỐNG KÊ DOANH THU";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -80,7 +81,7 @@
             panelFilter.Location = new Point(0, 77);
             panelFilter.Margin = new Padding(4, 5, 4, 5);
             panelFilter.Name = "panelFilter";
-            panelFilter.Size = new Size(1200, 82);
+            panelFilter.Size = new Size(1189, 82);
             panelFilter.TabIndex = 1;
             // 
             // btnThongKe
@@ -150,7 +151,7 @@
             panelCards.Margin = new Padding(4, 5, 4, 5);
             panelCards.Name = "panelCards";
             panelCards.Padding = new Padding(27, 31, 27, 31);
-            panelCards.Size = new Size(1200, 237);
+            panelCards.Size = new Size(1189, 237);
             panelCards.TabIndex = 2;
             // 
             // panelCard3
@@ -283,7 +284,7 @@
             dgvThongKe.Margin = new Padding(4, 5, 4, 5);
             dgvThongKe.Name = "dgvThongKe";
             dgvThongKe.RowHeadersWidth = 51;
-            dgvThongKe.Size = new Size(1200, 467);
+            dgvThongKe.Size = new Size(1189, 467);
             dgvThongKe.TabIndex = 3;
             // 
             // frmThongKe
@@ -291,7 +292,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(1200, 863);
+            ClientSize = new Size(1189, 863);
             Controls.Add(dgvThongKe);
             Controls.Add(panelCards);
             Controls.Add(panelFilter);

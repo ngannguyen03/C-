@@ -37,7 +37,7 @@
             // 
             // lblTitle
             // 
-            lblTitle.BackColor = Color.SteelBlue;
+            lblTitle.BackColor = Color.Navy;
             lblTitle.Dock = DockStyle.Fill;
             lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
             lblTitle.ForeColor = Color.White;

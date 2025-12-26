@@ -1,19 +1,33 @@
-using QuanLyShopQuanAo.GUI;
+﻿using QuanLyShopQuanAo.GUI;
 
 namespace QuanLyShopQuanAo
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new frmLogin());
+
+            // 1. Khởi tạo form Login
+            frmLogin login = new frmLogin();
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                Application.Run(new frmMain());
+            }
+
+            // 2. Hiện Login dưới dạng Dialog
+            // Khi đăng nhập thành công, ta sẽ gán DialogResult = OK bên trong frmLogin
+            if (login.ShowDialog() == DialogResult.OK)
+            {
+                // 3. Nếu OK thì mới chạy Main
+                Application.Run(new frmMain());
+            }
+            else
+            {
+                // Nếu bấm thoát ở Login thì thoát hẳn app
+                Application.Exit();
+            }
         }
     }
 }

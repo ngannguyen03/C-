@@ -40,6 +40,8 @@ namespace QuanLyShopQuanAo.GUI
             childForm.Show();
         }
 
+        // Chèn vào sau btnSanPham_Click
+        private void btnDanhMuc_Click(object sender, EventArgs e) => OpenChildForm(new frmDanhMuc(), "Danh mục sản phẩm");
         private void btnSanPham_Click(object sender, EventArgs e) => OpenChildForm(new frmSanPham(), "Sản phẩm");
         private void btnNhanVien_Click(object sender, EventArgs e) => OpenChildForm(new frmNhanVien(), "Nhân viên");
         private void btnKhachHang_Click(object sender, EventArgs e) => OpenChildForm(new frmKhachHang(), "Khách hàng");

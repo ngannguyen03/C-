@@ -1,113 +1,90 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
+using QuanLyShopQuanAo.BLL;
+using QuanLyShopQuanAo.DTO;
 
 namespace QuanLyShopQuanAo.GUI
 {
     public partial class frmThongKe : Form
     {
+        ThongKeBLL bll = new ThongKeBLL();
+
         public frmThongKe()
         {
             InitializeComponent();
-            StylingInterface(); // Gọi hàm trang trí giao diện
+            StylingInterface();
         }
 
-        // 1. Hàm trang trí giao diện
         private void StylingInterface()
         {
-            // Trang trí nút
-            btnThongKe.Text = "🔍 Xem Thống Kê";
-            btnThongKe.BackColor = Color.MediumSlateBlue;
-            btnThongKe.ForeColor = Color.White;
-            btnThongKe.FlatStyle = FlatStyle.Flat;
-            btnThongKe.FlatAppearance.BorderSize = 0;
-            btnThongKe.Cursor = Cursors.Hand;
-
-            // Trang trí bảng
             dgvThongKe.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvThongKe.AllowUserToAddRows = false; // Không cho user tự thêm dòng
-            dgvThongKe.ReadOnly = true; // Chỉ xem
-
-            // Map sự kiện Click đúp vào bảng (Nếu Designer chưa map)
-            dgvThongKe.CellDoubleClick += DgvThongKe_CellDoubleClick;
+            dgvThongKe.AllowUserToAddRows = false;
+            dgvThongKe.ReadOnly = true;
+            dgvThongKe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        // 2. Sự kiện Load Form
         private void frmThongKe_Load(object sender, EventArgs e)
         {
+            // Mặc định xem thống kê từ đầu tháng đến hiện tại
             DateTime now = DateTime.Now;
             dtpTuNgay.Value = new DateTime(now.Year, now.Month, 1);
             dtpDenNgay.Value = now;
 
-            // Tự động load dữ liệu mẫu khi mở form
-            LoadDummyData();
+            LoadDataReal();
         }
 
-        // 3. Sự kiện Click nút Xem Thống Kê
         private void btnThongKe_Click(object sender, EventArgs e)
         {
-            LoadDummyData(); // Quan trọng: Phải gọi hàm này
+            LoadDataReal();
         }
 
-        // 4. Hàm tạo dữ liệu giả
-        private void LoadDummyData()
+        private void LoadDataReal()
         {
-            // Xóa cột cũ để tránh trùng lặp nếu ấn nhiều lần
             dgvThongKe.Columns.Clear();
             dgvThongKe.Rows.Clear();
 
-            // Tạo cột
+            // Khởi tạo cột
             dgvThongKe.Columns.Add("Ngay", "📅 Ngày bán");
             dgvThongKe.Columns.Add("SoDon", "🛒 Số hóa đơn");
             dgvThongKe.Columns.Add("SoLuong", "👕 Số lượng SP");
             dgvThongKe.Columns.Add("DoanhThu", "💰 Doanh thu");
-
-            // Định dạng
             dgvThongKe.Columns["DoanhThu"].DefaultCellStyle.Format = "N0";
-            dgvThongKe.Columns["DoanhThu"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dgvThongKe.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
-            // Thêm dữ liệu giả
-            dgvThongKe.Rows.Add("15/12/2025", "10", "25", "5,500,000");
-            dgvThongKe.Rows.Add("16/12/2025", "15", "40", "8,200,000");
-            dgvThongKe.Rows.Add("17/12/2025", "8", "12", "2,800,000");
-            dgvThongKe.Rows.Add("18/12/2025", "20", "55", "12,150,000");
-            dgvThongKe.Rows.Add("19/12/2025", "12", "30", "6,000,000");
+            // Lấy dữ liệu từ BLL
+            List<ThongKeDTO> list = bll.LayThongKe(dtpTuNgay.Value, dtpDenNgay.Value);
 
-            // Tính tổng
-            CalculateTotals();
-        }
+            decimal tongDoanhThu = 0;
+            int tongDonHang = 0;
+            int tongSanPham = 0;
 
-        // 5. Hàm tính tổng hiển thị lên các ô màu
-        private void CalculateTotals()
-        {
-            decimal tongTien = 0;
-            int tongDon = 0;
-            int tongSP = 0;
-
-            foreach (DataGridViewRow row in dgvThongKe.Rows)
+            foreach (var item in list)
             {
-                if (row.Cells[0].Value != null)
-                {
-                    tongDon += int.Parse(row.Cells[1].Value.ToString());
-                    tongSP += int.Parse(row.Cells[2].Value.ToString());
-                    tongTien += decimal.Parse(row.Cells[3].Value.ToString().Replace(",", ""));
-                }
+                dgvThongKe.Rows.Add(
+                    item.Ngay.ToString("dd/MM/yyyy"),
+                    item.SoDonHang,
+                    item.SoLuongSanPham,
+                    item.DoanhThu.ToString("N0")
+                );
+
+                tongDoanhThu += item.DoanhThu;
+                tongDonHang += item.SoDonHang;
+                tongSanPham += item.SoLuongSanPham;
             }
 
-            lblDoanhThu.Text = tongTien.ToString("N0") + " đ";
-            lblDonHang.Text = tongDon.ToString() + " đơn";
-            lblSoLuong.Text = tongSP.ToString() + " cái";
+            // Hiển thị lên các Card tổng hợp
+            lblDoanhThu.Text = tongDoanhThu.ToString("N0") + " đ";
+            lblDonHang.Text = tongDonHang.ToString() + " đơn";
+            lblSoLuong.Text = tongSanPham.ToString() + " cái";
         }
 
-        // 6. Sự kiện mở Popup chi tiết
         private void DgvThongKe_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 string ngayChon = dgvThongKe.Rows[e.RowIndex].Cells[0].Value.ToString();
-
-                // Mở Form chi tiết
+                // frmChiTietThongKe là form xem danh sách các hóa đơn của ngày đó
                 frmChiTietThongKe popup = new frmChiTietThongKe(ngayChon);
                 popup.ShowDialog();
             }
